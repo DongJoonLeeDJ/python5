@@ -15,8 +15,9 @@ def clickfont():
     pyautogui.click(img)
     pyautogui.move(0,300)
     pyautogui.click()
+    pyautogui.sleep(3)
     copyandpaste('참잘햇어요')
-    pyautogui.sleep(1)
+    pyautogui.sleep(3)
     fw = pyautogui.getWindowsWithTitle('제목 없음')[0]
     fw.close()
     pyautogui.write('n')
