@@ -26,14 +26,48 @@ fish_target = np.concatenate(  (np.ones(35),np.zeros(14))  )
 train_input,test_input,train_target,test_target =\
     train_test_split(fish_data,fish_target,random_state=42,stratify=fish_target)
     
-print(train_input.shape)
-print(train_target.shape)
+# print(train_input.shape)
+# print(train_target.shape)
 
-print(test_input.shape)
-print(test_target.shape)
+# print(test_input.shape)
+# print(test_target.shape)
 
-print(train_input[:5])
+# print(train_input[:5])
 
+# 25,150
+kn = KNeighborsClassifier()
+kn.fit(train_input,train_target)
+
+value = kn.predict([[25,150]])
+print(value)
+
+# plt.scatter(train_input[:,0],train_input[:,1])
+# plt.scatter(25,150,marker='^')
+# plt.show()
+
+mean = np.mean(train_input,axis=0)
+std = np.std(train_input,axis=0)
+
+print(mean)
+print(std)
+
+train_scaled = (train_input -mean) /std
+test_scaled = (test_input- mean)/std
+
+test_data = ([25,150] - mean)/std
+
+kn = KNeighborsClassifier()
+kn.fit(train_scaled,train_target)
+
+value = kn.predict([test_data])
+print(value)
+
+# plt.scatter(train_scaled[:,0],train_scaled[:,1])
+# plt.scatter(test_data[0],test_data[1],marker='^')
+# plt.show()
+
+
+'''
 knclf = KNeighborsClassifier(n_neighbors=2)
 
 train_input = [[10,20],[11,21],[12,22],[3,4],[4,5],[5,6]]
@@ -49,3 +83,4 @@ print(value)
 
 plt.scatter(train_input[:,0],train_input[:,1])
 plt.show()
+'''
