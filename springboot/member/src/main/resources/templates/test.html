@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout(menu='index.html')}">
+      layout:decorate="~{layout/layout(menu='test.html')}">
 <th:block layout:fragment="script">
     <script>
         console.log("log");
     </script>
 </th:block>
-
 <th:block layout:fragment="css">
     <style>
         .mycontent{
@@ -15,12 +14,9 @@
         }
     </style>
 </th:block>
-
 <div layout:fragment="content">
-    <hr>
     <div class="mycontent">
-        content
+        test
     </div>
-    <hr>
 </div>
 </html>
