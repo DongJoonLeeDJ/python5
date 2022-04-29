@@ -38,4 +38,5 @@ public class MemberController {
         List<Member> list = memberRepository.findAll();
         return list;
     }
+
 }
