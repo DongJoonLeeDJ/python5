@@ -16,8 +16,34 @@
 <div layout:fragment="content">
     <hr>
     <div class="row">
-
-        <a href="member/insert" class="w-25 btn btn-outline-primary">회원가입</a>
+        <form th:action="@{/member/insert}" th:object="${memberformdto}" method="post">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" th:field="*{email}">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger">
+                    asdkclfjnqwlekjcrnqwlekjcrnqwelckrjqnwelcrkjnlkj
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">gender address</label>
+                <input type="email" class="form-control" id="gender" aria-describedby="genderHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="nameHelp">
+                <div id="nameHelp" class="form-text">We'll never share your name with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
     <hr>
 </div>
