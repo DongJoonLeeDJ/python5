@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout(menu='findall.html')}">
+<th:block layout:fragment="script">
+    <script>
+        console.log("log");
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <hr>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Email</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Name</th>
+                <th scope="col">Password</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="member : ${list}">
+                    <th scope="row" th:text="${member.id}">1</th>
+                    <td th:text="${member.email}">Mark</td>
+                    <td th:text="${member.gender}">Otto</td>
+                    <td th:text="${member.name}">@mdo</td>
+                    <td th:text="${member.password}">@mdo</td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/member/insert}" class="w-25 btn btn-outline-primary">회원가입</a>
+    </div>
+    <nav class="mt-3" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <hr>
+</div>
+</html>
