@@ -29,7 +29,8 @@
             <tbody>
                 <tr th:each="member : ${list}">
                     <th scope="row" th:text="${member.id}">1</th>
-                    <td th:text="${member.email}">Mark</td>
+                    <!-- member/update?id=13&pass=123 -->
+                    <td><a th:href="@{/member/update(id=${member.id})}" href="" th:text="${member.email}">Mark</a></td>
                     <td th:text="${member.gender}">Otto</td>
                     <td th:text="${member.name}">@mdo</td>
                     <td th:text="${member.password}">@mdo</td>

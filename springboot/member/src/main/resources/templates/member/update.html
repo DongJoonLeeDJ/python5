@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout(menu='insert.html')}">
+      layout:decorate="~{layout/layout(menu='update.html')}">
 <th:block layout:fragment="script">
     <script>
         console.log("log");
@@ -16,7 +16,8 @@
 <div layout:fragment="content">
     <hr>
     <div class="row">
-        <form th:action="@{/member/insert}" th:object="${memberFormDto}" method="post">
+        <form th:action="@{/member/update}" th:object="${memberFormDto}" method="post">
+            <input type="hidden" th:field="*{id}">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp" th:field="*{email}">

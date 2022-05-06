@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -37,11 +38,38 @@ public class MemberController {
 
     @PostMapping("insert")
     public String insert(Model model, @Valid MemberFormDto memberFormDto, BindingResult bindingResult){
-        // 에러가 있으면... insert 화면 다시 가라..
+
+        Member member = Member.createMember(memberFormDto);
+        System.out.println(member);
         if(bindingResult.hasErrors()){
             return "member/insert";
         }
-        // 에러 없으면 select 화면 가라...
+        memberRepository.save(member);
+
+        return "redirect:findall";
+    }
+
+    @GetMapping("update")
+    public String update(Model model,@RequestParam("id") Long id){
+        System.out.println("id : "+id);
+        Member mdf = memberRepository.findById(id).orElse(new Member());
+        model.addAttribute("memberFormDto",new MemberFormDto(mdf.getId(),
+                                                                            mdf.getEmail(),
+                                                                            mdf.getName(),
+                                                                            mdf.getGender(),
+                                                                            mdf.getPassword()));
+        return "member/update";
+    }
+
+    @PostMapping("update")
+    public String update(Model model, @Valid MemberFormDto memberFormDto, BindingResult bindingResult){
+        Member member = Member.createMember(memberFormDto);
+        System.out.println(member);
+        if(bindingResult.hasErrors()){
+            return "member/update";
+        }
+        memberRepository.save(member);
+
         return "redirect:findall";
     }
 }

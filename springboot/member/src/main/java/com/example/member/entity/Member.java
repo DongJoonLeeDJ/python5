@@ -1,8 +1,10 @@
 package com.example.member.entity;
 
+import com.example.member.dto.MemberFormDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 @Data   // setter getter 안만들어도 됩니다...lombok/...
 @AllArgsConstructor
 @RequiredArgsConstructor
+@ToString
 public class Member {
 
     @Id //table 기본키입니다.
@@ -25,4 +28,13 @@ public class Member {
     private String gender;
 
 
+    public static Member createMember(MemberFormDto memberFormDto) {
+        Member member = new Member();
+        member.id = memberFormDto.getId();
+        member.name = memberFormDto.getName();
+        member.email = memberFormDto.getEmail();
+        member.password = memberFormDto.getPassword();
+        member.gender = memberFormDto.getGender();
+        return  member;
+    }
 }
