@@ -4,7 +4,11 @@
       layout:decorate="~{layout/layout(menu='findall.html')}">
 <th:block layout:fragment="script">
     <script>
-        console.log("log");
+        $('document').ready(function(){
+            $('#delbtn').on('click',function(){
+                $('#frm').submit();
+            });
+        });
     </script>
 </th:block>
 
@@ -16,9 +20,11 @@
 <div layout:fragment="content">
     <hr>
     <div class="row">
+        <form id="frm" th:action="@{/member/delete}" method="post">
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">ID</th>
                 <th scope="col">Email</th>
                 <th scope="col">Gender</th>
@@ -28,7 +34,8 @@
             </thead>
             <tbody>
                 <tr th:each="member : ${list}">
-                    <th scope="row" th:text="${member.id}">1</th>
+                    <td><input type="checkbox" name="id" th:value="${member.id}"></td>
+                    <td th:text="${member.id}">1</td>
                     <!-- member/update?id=13&pass=123 -->
                     <td><a th:href="@{/member/update(id=${member.id})}" href="" th:text="${member.email}">Mark</a></td>
                     <td th:text="${member.gender}">Otto</td>
@@ -37,6 +44,8 @@
                 </tr>
             </tbody>
         </table>
+        </form>
+        <button id="delbtn" class="w-25 btn btn-outline-primary me-3">삭제</button>
         <a th:href="@{/member/insert}" class="w-25 btn btn-outline-primary">회원가입</a>
     </div>
     <nav class="mt-3" aria-label="Page navigation example">

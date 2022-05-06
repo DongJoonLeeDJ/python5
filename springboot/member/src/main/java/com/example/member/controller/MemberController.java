@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -52,6 +53,7 @@ public class MemberController {
     @GetMapping("update")
     public String update(Model model,@RequestParam("id") Long id){
         System.out.println("id : "+id);
+        // select * from member where id =?
         Member mdf = memberRepository.findById(id).orElse(new Member());
         model.addAttribute("memberFormDto",new MemberFormDto(mdf.getId(),
                                                                             mdf.getEmail(),
@@ -64,12 +66,22 @@ public class MemberController {
     @PostMapping("update")
     public String update(Model model, @Valid MemberFormDto memberFormDto, BindingResult bindingResult){
         Member member = Member.createMember(memberFormDto);
-        System.out.println(member);
         if(bindingResult.hasErrors()){
             return "member/update";
         }
         memberRepository.save(member);
 
+        return "redirect:findall";
+    }
+
+    @PostMapping("delete")
+    public String delete(Long[] id){
+        for (Long temp:id){
+            System.out.println(temp);
+        }
+        List<Long> list = Arrays.asList(id);
+        list.forEach(System.out::println);
+        memberRepository.deleteAllById(list);
         return "redirect:findall";
     }
 }
