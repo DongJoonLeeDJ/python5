@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout(menu='update.html')}">
+<th:block layout:fragment="script">
+    <script>
+        console.log("log");
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <hr>
+    <div class="row">
+        <form th:action="@{/member/update}" th:object="${memberFormDto}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" th:field="*{email}">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger">
+                    error
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">gender</label>
+                <input type="text" class="form-control" id="gender" aria-describedby="genderHelp" th:field="*{gender}">
+                <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="alert alert-danger">
+                    error
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="nameHelp" th:field="*{name}">
+                <div id="nameHelp" class="form-text">We'll never share your name with anyone else.</div>
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger">
+                    error
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" th:field="*{password}">
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger">
+                    error
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <hr>
+</div>
+</html>

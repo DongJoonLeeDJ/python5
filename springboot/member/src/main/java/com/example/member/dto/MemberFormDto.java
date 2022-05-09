@@ -9,7 +9,6 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-@ToString
 public class MemberFormDto {
 
     private Long id;
