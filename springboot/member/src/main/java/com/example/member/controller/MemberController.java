@@ -4,6 +4,9 @@ import com.example.member.dto.MemberFormDto;
 import com.example.member.entity.Member;
 import com.example.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,8 +27,13 @@ public class MemberController {
     MemberRepository memberRepository;
 
     @GetMapping("findall")
-    public String findall(Model model){
-        List<Member> list =  memberRepository.findAll();
+    public String findall(Model model,@RequestParam int page){
+        Pageable pageable = PageRequest.of(page,5);
+        Page<Member> list =  memberRepository.findAll(pageable);
+
+        System.out.println(list);
+        System.out.println(list.getTotalElements());
+        System.out.println(list.getTotalPages());
 
         model.addAttribute("list",list);
         return "member/findall";
