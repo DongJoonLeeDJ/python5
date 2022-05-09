@@ -1,12 +1,15 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template, send_file, make_response
 import json
 import numpy as np
 import matplotlib.pyplot as plt
-from io import BytesIO, StringIO
-from flask import make_response
 
+from io import BytesIO, StringIO
 from functools import wraps, update_wrapper
 from datetime import datetime
+
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LinearRegression
 
 # print(__name__)
 
@@ -27,8 +30,18 @@ fish_weight = np.array(fish_weight)
 fish_data = np.column_stack((fish_lengh,fish_weight))
 fish_target = np.concatenate((np.ones(35), np.zeros(14)))
 
-length=np.array([])
-weight=np.array([])
+length = np.array([])
+weight = np.array([])
+
+input_train, input_test, input_target, test_target =\
+    train_test_split(fish_data,fish_target,random_state=42)
+
+print(input_target[:5])
+
+knclf = KNeighborsClassifier()
+knclf.fit(input_train,input_target)
+
+
 
 def nocache(view):
   @wraps(view)
@@ -43,10 +56,8 @@ def nocache(view):
 
 
 @app.route('/fig/<int:l>_<int:w>')
-@nocache ### 요기가 바뀌었죠
+@nocache
 def fig(l, w):
-    print(l)
-    print(w)
     global length
     global weight
     try:
@@ -74,13 +85,25 @@ def board():
 @app.route("/boards",methods=["POST"])
 def board_list2():
     post_result = json.loads(request.get_data())
-    
     return f"question 변수의 값은 {post_result}"
 
 @app.route("/<l_w>")
 def index(l_w):
-    l,w = l_w.split("_")
+    l, w = 0,0
+    if l_w and "_" in l_w:
+        l, w = l_w.split('_')
     l,w = int(l),int(w)
-    return render_template('index.html',l=l,w=w,width=800,height=600)
+    value = knclf.predict([[l,w]])
+    if 0 == int(value):
+        value ='빙어'
+    else:
+        value = '도미'
+    return render_template('index.html',l=l,w=w,width=800,height=600,value=value)
+
+@app.route("/aa")
+def aa():
+    a=100
+    return render_template('aa.html',a=a,b=300)
+
 
 app.run(host="localhost",port=5001)
