@@ -16,23 +16,38 @@
 <div layout:fragment="content">
     <hr>
     <div class="row">
-        <div>
-            title = [[${board.title}]]
-        </div>
-        <div>
-            content = [[${board.content}]]
-        </div>
-        <div>
-            wdate = [[${board.wdate}]]
+        <h1>본문</h1>
+        <div style="border: 1px dotted black;margin: 1rem;">
+            <div>
+                title = [[${board.title}]]
+            </div>
+            <div>
+                content = [[${board.content}]]
+            </div>
+            <div>
+                wdate = [[${board.wdate}]]
+            </div>
         </div>
     </div>
     <div class="row">
         <h1>댓글들....</h1>
-        <div>
+        <div style="border: 1px dotted black;margin: 1rem;">
             <div th:each="boardtail:${board.list}">
                 <h2>제목 : [[${boardtail.title}]]</h2>
                 <p> [[${boardtail.content}]]</p>
             </div>
+        </div>
+        <div style="border: 1px dotted black;margin: 1rem;">
+            <form th:action="@{/boardtail/insert}" method="post">
+                <input type="hidden" name="boardid" th:value="${board.id}">
+                <div>
+                    <h3>제목</h3>
+                    <input type="text" name="title">
+                    <h3>내용</h3>
+                    <input type="text" name="content">
+                </div>
+                <input class="btn btn-primary" type="submit" value="댓글작성">
+            </form>
         </div>
     </div>
     <hr>

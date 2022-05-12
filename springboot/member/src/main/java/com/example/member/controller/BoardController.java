@@ -42,9 +42,9 @@ public class BoardController {
         Board board = boardRepository
                 .findById(boardid).orElse(new Board());
 
-        boardTailRepository.save(new BoardTail(1L,"댓글1","내용1",board));
-        boardTailRepository.save(new BoardTail(2L,"댓글2","내용2",board));
-        System.out.println(board);
+//        boardTailRepository.save(new BoardTail(1L,"댓글1","내용1",board));
+//        boardTailRepository.save(new BoardTail(2L,"댓글2","내용2",board));
+//        System.out.println(board);
 
         model.addAttribute("board",board);
         return "board/view";

@@ -1,16 +1,14 @@
 package com.example.member.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Board {
@@ -26,6 +24,6 @@ public class Board {
 
     @OneToMany(mappedBy = "board",
             cascade = CascadeType.REMOVE,
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     List<BoardTail> list = new ArrayList<>();
 }
