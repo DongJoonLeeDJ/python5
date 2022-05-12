@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout(menu='view.html')}">
+<th:block layout:fragment="script">
+    <script>
+        console.log("log");
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <hr>
+    <div class="row">
+        <div>
+            title = [[${board.title}]]
+        </div>
+        <div>
+            content = [[${board.content}]]
+        </div>
+        <div>
+            wdate = [[${board.wdate}]]
+        </div>
+    </div>
+    <div class="row">
+        <h1>댓글들....</h1>
+        <div>
+            <div th:each="boardtail:${board.list}">
+                <h2>제목 : [[${boardtail.title}]]</h2>
+                <p> [[${boardtail.content}]]</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+</html>

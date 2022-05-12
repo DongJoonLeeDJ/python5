@@ -35,7 +35,7 @@
                 <tr th:each="board:${list}">
                     <td></td>
                     <td>[[${board.id}]]</td>
-                    <td>[[${board.title}]]</td>
+                    <td><a th:href="@{/board/view(boardid=${board.id})}">[[${board.title}]]</a></td>
                     <td>[[${board.content}]]</td>
                     <td>[[${board.wdate}]]</td>
                 </tr>

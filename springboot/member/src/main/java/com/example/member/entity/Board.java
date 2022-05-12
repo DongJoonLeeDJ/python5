@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,7 +16,7 @@ import javax.persistence.*;
 public class Board {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "boardid", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -22,4 +24,8 @@ public class Board {
     private String content;
     private String wdate;
 
+    @OneToMany(mappedBy = "board",
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.EAGER)
+    List<BoardTail> list = new ArrayList<>();
 }
