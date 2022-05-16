@@ -26,15 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // insert 회원가입할때 비번 인코딩
     // login select...
 
+    @Autowired
+    MemberRepository memberRepository;
 
-    //alt + insert 키
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService((String email) -> {
+    class UService implements UserDetailsService{
+        @Override
+        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //            Member member = memberRepository.findByEmail(email);
             System.out.println("1234 : "+encoder.encode("1234"));
@@ -43,12 +40,48 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .password(encoder.encode("1234"))
                     .roles("USER")
                     .build();
-        }).passwordEncoder(passwordEncoder());
+        }
     }
+    //alt + insert 키
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService( (String email) -> {
+
+//            System.out.println("email : "+email);
+            Member member = memberRepository.findByEmail(email);
+            System.out.println(member);
+            if (member == null){
+                throw new RuntimeException("해당되는 Email 없다");
+            }
+            return User.builder()
+                    .username(member.getName())
+                    .password(member.getPassword())
+                    .roles("USER")
+                    .build();
+        }  ).passwordEncoder(passwordEncoder());
+    }
+    /*
+    (String email) -> {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//            Member member = memberRepository.findByEmail(email);
+        System.out.println("1234 : "+encoder.encode("1234"));
+
+        return User.builder()
+                .username("aa@naver.com")
+                .password(encoder.encode("1234"))
+                .roles("USER")
+                .build();
+    }
+    */
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+//        http.csrf().disable();
 
         http.formLogin()
                 .loginPage("/user/login")
@@ -60,8 +93,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/");
 
+        /*
+        접근 가능한 페이지
+            1. /
+            2. /user/**
+            3. /member/**
+        /member/insert.html
+            thymeleaf -> security.jar
+         */
         http.authorizeRequests()
-                .antMatchers("/", "/user/**").permitAll()
+                .antMatchers("/", "/user/**","/member/**").permitAll()
                 .anyRequest().authenticated();
     }
 

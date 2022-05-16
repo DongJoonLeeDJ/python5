@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,9 @@ public class MemberController {
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("findall")
     public String findall(Model model,@RequestParam(required = false, defaultValue = "0") int page){
@@ -50,7 +54,8 @@ public class MemberController {
     public String insert(Model model, @Valid MemberFormDto memberFormDto, BindingResult bindingResult){
 
         Member member = Member.createMember(memberFormDto);
-        System.out.println(member);
+
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
         if(bindingResult.hasErrors()){
             return "member/insert";
         }
