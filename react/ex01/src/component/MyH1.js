@@ -1,38 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-// import React, { Component } from 'react'
-
-// class MyH1 extends Component {
-//   render() {
-//     return (
-//       <div>MyH1</div>
-//     )
-//   }
-// }
-
-
-// function MyH1(props){
-//    var a = props.aa;
-//    var b = props.bb;
-//    return (
-//       <div>
-//         <h1>MyH1</h1>
-//         <p>{a}</p>
-//         <p>{b}</p>
-//       </div>
-//    )
-// }
 const MyH1 = (props) => {
   function doadd(){
     setB(b+1);
-    // document.getElementById('b').innerHTML=b;
-    // console.log("증가"+b);
   }
   const dosub = ()=>{
     setB(b-1);
-    // document.getElementById('b').innerHTML=b;
-    // console.log("감소"+b);
   }
   const getax = ()=>{
     axios.get('https://dongjoonleedj.github.io/testWebHosting/myjson.json')
@@ -44,8 +18,6 @@ const MyH1 = (props) => {
   }
   const [a, setA] = useState(props.aa);
   const [b, setB] = useState(props.bb);
-  // var a = props.aa;
-  // var b = props.bb;
   return (
     <div>
       <h1>MyH1</h1>

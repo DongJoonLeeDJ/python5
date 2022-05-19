@@ -1,0 +1,10 @@
+.board_select{
+    width: 480px;
+    margin: 0 auto;
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 15% 0  15% 0;
+}
+.table{
+    width: 100%;
+}
