@@ -3,6 +3,9 @@ package com.rest.api.controller;
 import com.rest.api.cont.StatusEnum;
 import com.rest.api.entity.Board;
 import com.rest.api.message.Message;
+import com.rest.api.repository.BoardRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +19,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
+@RequiredArgsConstructor
 public class BoardController {
+
+    private final BoardRepository boardRepository;
 
     // url -> 1/10 2/10
     // localhost:8080/api/boards/1/10
@@ -25,12 +31,7 @@ public class BoardController {
     @GetMapping("boards")
     @CrossOrigin
     public ResponseEntity<Message> boards(){
-        List<Board> list = Arrays.asList(
-                new Board(1L,"제11","20220519","냉무11",0),
-                new Board(2L,"제22","20220519","냉무22",0),
-                new Board(3L,"제목3123123","20220519","냉무33",0),
-                new Board(4L,"111122","20220519","냉무33",0)
-        );
+        List<Board> list = boardRepository.findAll();
 
         Message message = new Message();
         HttpHeaders headers = new HttpHeaders();

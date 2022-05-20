@@ -1,6 +1,5 @@
 import React, { useEffect,useState } from 'react'
 import './BoardSelect.css'
-// import dummy from '../db/data.json'
 import axios from 'axios'
 
 export const BoardSelect = () => {

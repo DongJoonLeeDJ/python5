@@ -14,11 +14,12 @@ import javax.persistence.Id;
 @Builder
 public class Board {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "boardid", nullable = false)
     private Long id;
 
     private String title;
     private String wdate;
     private String content;
     private int count;
+
 }
