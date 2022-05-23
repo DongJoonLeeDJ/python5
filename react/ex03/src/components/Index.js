@@ -6,8 +6,8 @@ import clock from '../img/clock.jpg';
 
 export const Index = () => {
   return (
-    <Container className='mt-3 mb-3 pb-5'>
-        <Row>
+    <Container className='mt-3 mb-3' style={{paddingBottom:'4rem'}}>
+        <Row className='my-3'>
             <Carousel>
                 <Carousel.Item>
                     <img

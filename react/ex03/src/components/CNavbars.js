@@ -17,6 +17,7 @@ export const CNavbars = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
+        {/* <Link path="/Index" to="/Index">Index</Link> */}
     </div>
   )
 }
