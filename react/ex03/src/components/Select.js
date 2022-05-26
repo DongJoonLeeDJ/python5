@@ -15,7 +15,7 @@ export const Select = () => {
     })
   }, [])
 
-  if( boards.length == 0 ){
+  if( boards.length === 0 ){
     return <div><h1>loading...</h1></div>
   }
   
