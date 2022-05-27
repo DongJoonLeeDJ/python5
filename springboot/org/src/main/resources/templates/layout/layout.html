@@ -9,9 +9,9 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <th:block layout:fragment="css"></th:block>
-    <th:block layout:fragment="script"></th:block>
+    <script type="text/javascript" th:src="@{/js/service/HuskyEZCreator.js}" charset="utf-8"></script>
 
+    <th:block layout:fragment="css"></th:block>
 </head>
 <body>
     <div th:replace="fragment/head::head">
@@ -21,4 +21,5 @@
         </div>
     </div>
 </body>
+<th:block layout:fragment="script"></th:block>
 </html>
