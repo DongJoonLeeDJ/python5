@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap';
 import axios  from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const Insert = () => {
+  let navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -13,6 +15,7 @@ export const Insert = () => {
     })
     .then((res)=>{
       console.log(res);
+      navigate("/select")
     })
     .catch((error)=>{
       console.log(error);

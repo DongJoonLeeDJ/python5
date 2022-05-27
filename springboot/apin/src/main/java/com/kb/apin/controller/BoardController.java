@@ -55,7 +55,7 @@ public class BoardController {
         message.setStatus(StatusEnum.OK);
         message.setMessage("성공");
         message.setData(list);
-        return new ResponseEntity<>(message,headers, HttpStatus.OK);
+        return new ResponseEntity<>(message, headers, HttpStatus.OK);
     }
 
 
