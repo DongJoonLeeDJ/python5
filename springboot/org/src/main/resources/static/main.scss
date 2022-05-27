@@ -1,9 +1,15 @@
 // Variable overrides first
-$primary: rgb(33, 0, 153);
+$primary: rgb(3, 122, 165);
+$light:rgb(243, 248, 250);
 $enable-shadows: true;
-$prefix: "mo-";
 $border-radius: 0;
+
 
 
 // Then imports Bootstrap
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}

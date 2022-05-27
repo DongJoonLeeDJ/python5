@@ -14,7 +14,11 @@
 
 </head>
 <body>
-    <div layout:fragment="content">
+    <div th:replace="fragment/head::head">
+    </div>
+    <div class="container">
+        <div layout:fragment="content">
+        </div>
     </div>
 </body>
 </html>

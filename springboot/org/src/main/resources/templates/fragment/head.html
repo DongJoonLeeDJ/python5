@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="head">
+        <div class="container-fluid bg-light">
+            <div class="row">
+                <div class="col-sm-12 col-md-4 d-flex justify-content-center py-3">
+                    <a th:href="@{/}">
+                        <img th:src="@{/img/kylogo.png}" alt="logo">
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md-8">
+                    <nav class="navbar navbar-expand">
+                        <ul class="navbar-nav me-auto mb-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/freeboard/select}">FreeBoard</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
