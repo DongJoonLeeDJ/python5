@@ -1,9 +1,6 @@
 package com.mh.org.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @AllArgsConstructor
+@ToString
 public class FreeBoard {
 //    번호	제목	작성자	추천	조회	등록일
     @Id
@@ -21,10 +19,12 @@ public class FreeBoard {
     private Long id;
     private String title;
     private String name;
-    private String count;
+
+    @Column(columnDefinition = "int default 0")
+    private int count;
     private String content;
 
-    @Column(columnDefinition = "datetime default now()")
+    @Column(columnDefinition = "datetime default CURRENT_TIMESTAMP")
     private LocalDateTime wdate;
 
     public FreeBoard() {}

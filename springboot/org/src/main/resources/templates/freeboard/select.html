@@ -7,7 +7,25 @@
         <hr>
         <div class="mycontent">
             <h1>select.html</h1>
-            <button class="btn btn-primary">test</button>
+            <table class="table">
+                <tr>
+                    <td>순서</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성날짜</td>
+                    <td>조회수</td>
+                </tr>
+                <tr th:each="row : ${list}">
+<!--                    [[${row}]]-->
+                    <td th:text="${row.id}"></td>
+                    <td>[[${row.title}]]</td>
+                    <td>[[${row.name}]]</td>
+<!--                    ${#temporals.format(temporal)}-->
+<!--                    <td th:text="${#dates.formatISO(mydate)}"></td>-->
+                    <td th:text="${#temporals.format(row.wdate,'yy년MM월dd일 hh시mm분')}"></td>
+                    <td>[[${row.count}]]</td>
+                </tr>
+            </table>
         </div>
         <hr>
         <div>
