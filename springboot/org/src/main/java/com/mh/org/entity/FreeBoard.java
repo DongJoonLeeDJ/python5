@@ -22,6 +22,9 @@ public class FreeBoard {
 
     @Column(columnDefinition = "int default 0")
     private int count;
+
+    @Column(columnDefinition = "text")
+//    @Lob
     private String content;
 
     @Column(columnDefinition = "datetime default CURRENT_TIMESTAMP")

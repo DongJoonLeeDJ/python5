@@ -12,11 +12,15 @@
                 sSkinURI: "/smart",
                 fCreator: "createSEditor2"
             });
+            $("#savebutton").click(function(){
+                oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+                $("#frm").submit();
+            });
         </script>
     </th:block>
 
     <div layout:fragment="content">
-        <form th:action="@{/freeboard/insert}" method="post">
+        <form th:action="@{/freeboard/insert}" method="post" id="frm">
             <hr>
             <div class="mycontent">
                 <h1>insert.html</h1>
@@ -40,7 +44,7 @@
             </div>
             <hr>
             <div>
-                <input type="submit" class="btn btn-primary" th:value="저장">
+                <input type="button" class="btn btn-primary" th:value="저장" id="savebutton">
             </div>
         </form>
     </div>

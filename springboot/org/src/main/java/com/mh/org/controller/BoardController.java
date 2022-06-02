@@ -32,11 +32,11 @@ public class BoardController {
 //        List<FreeBoard> list=freeBoardRepository.stateendselect("2022-05-30","2022-06-01");
 //        System.out.println(list);
 
-        Pageable pa = PageRequest.of(1,5, Sort.by(Sort.Direction.DESC,"id"));
+        Pageable pa = PageRequest.of(0,5, Sort.by(Sort.Direction.DESC,"id"));
 //        Page<FreeBoard> list = freeBoardRepository.findByTitleContainingIgnoreCase("ㅈ",pa);
 //        System.out.println(list);
 
-        Page<FreeBoard> list = freeBoardRepository.mycustomQuery("ㅈㅈ",pa);
+        Page<FreeBoard> list = freeBoardRepository.mycustomQuery("",pa);
         System.out.println(list);
 
         model.addAttribute("list",list);
