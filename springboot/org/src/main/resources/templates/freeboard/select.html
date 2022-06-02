@@ -18,7 +18,7 @@
                 <tr th:each="row : ${list}">
 <!--                    [[${row}]]-->
                     <td th:text="${row.id}"></td>
-                    <td>[[${row.title}]]</td>
+                    <td><a th:href="@{/freeboard/view(id=${row.id})}">[[${row.title}]]</a></td>
                     <td>[[${row.name}]]</td>
 <!--                    ${#temporals.format(temporal)}-->
 <!--                    <td th:text="${#dates.formatISO(mydate)}"></td>-->

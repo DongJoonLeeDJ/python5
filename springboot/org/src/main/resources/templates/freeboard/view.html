@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout(menu='freeboard')}">
+
+    <th:block layout:fragment="script">
+    </th:block>
+
+    <div layout:fragment="content">
+        <hr>
+        <div class="mycontent">
+            <h1>view.html</h1>
+            <div class="row my-3">
+                <div class="col-8">
+                    <label>제목</label>
+                    <div th:text="${freeboard.title}"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" th:text="${freeboard.content}"></div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <label>작성자</label>
+                    <div th:text="${freeboard.name}"></div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            댓글입니다.
+        </div>
+    </div>
+</html>

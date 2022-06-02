@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.DateUtils;
 
 import java.time.LocalDateTime;
@@ -60,4 +61,17 @@ public class BoardController {
         freeBoardRepository.save(freeBoard);
         return "redirect:/freeboard/select";
     }
+
+    @GetMapping("view")
+    public String view(Long id,Model model){
+
+        FreeBoard freeboard= freeBoardRepository
+                            .findById(id)
+                            .orElse(new FreeBoard());
+        model.addAttribute("freeboard",freeboard);
+
+        return "freeboard/view";
+    }
+
+
 }
