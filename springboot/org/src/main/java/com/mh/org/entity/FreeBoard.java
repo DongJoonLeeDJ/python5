@@ -30,6 +30,9 @@ public class FreeBoard {
     @Column(columnDefinition = "datetime default CURRENT_TIMESTAMP")
     private LocalDateTime wdate;
 
+    private String filename1;
+    private String filename2;
+
     public FreeBoard() {}
 
 

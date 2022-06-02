@@ -32,6 +32,11 @@ public class FreeBoardDto {
     private int count;
     private LocalDateTime wdate;
 
+    // 파일이름 중복 안나게 문자열 잘 만들어주는 역활
+    private String fileName1;
+    private String fileName2;
+
+
     public FreeBoardDto() {}
 
 }

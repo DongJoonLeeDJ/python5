@@ -14,11 +14,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.DateUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("freeboard")
@@ -26,6 +32,8 @@ import java.util.List;
 public class BoardController {
 
     private final  FreeBoardRepository freeBoardRepository;
+    public static final Path path = Paths.get(System.getProperty("user.dir"),
+            "src/main/resources/static/myfiles");
 
     @GetMapping("select")
     public String select(Model model){
@@ -51,14 +59,39 @@ public class BoardController {
     }
 
     @PostMapping("insert")
-    public String insert(FreeBoardDto dto){
+    public String insert( MultipartFile multipartFile[], FreeBoardDto dto){
+
+
+        for ( int i =0; i < multipartFile.length;i++){
+            MultipartFile mf = multipartFile[i];
+            if(!mf.isEmpty()){
+                String filename = UUID.randomUUID() +mf.getOriginalFilename();
+                if(i==0)
+                    dto.setFileName1(filename);
+                else
+                    dto.setFileName2(filename);
+                // UUID + Filename
+                File file = new File(
+                        path.toAbsolutePath().toString()+File.separator+ filename);
+                try {
+                    mf.transferTo(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         FreeBoard freeBoard = FreeBoard.builder()
+                .filename1(dto.getFileName1())
+                .filename2(dto.getFileName2())
                 .name(dto.getName())
                 .title(dto.getTitle())
                 .wdate(LocalDateTime.now())
                 .content(dto.getContent()).build();
 
         freeBoardRepository.save(freeBoard);
+
+
         return "redirect:/freeboard/select";
     }
 

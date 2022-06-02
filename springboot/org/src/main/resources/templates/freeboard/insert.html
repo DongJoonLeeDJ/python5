@@ -20,7 +20,7 @@
     </th:block>
 
     <div layout:fragment="content">
-        <form th:action="@{/freeboard/insert}" method="post" id="frm">
+        <form th:action="@{/freeboard/insert}" method="post" id="frm" enctype="multipart/form-data">
             <hr>
             <div class="mycontent">
                 <h1>insert.html</h1>
@@ -41,9 +41,21 @@
                         <input class="form-control" type="text" name="name"/>
                     </div>
                 </div>
+                <div class="row my-3">
+                    <div class="col-4">
+                        <label>파일 1 </label>
+                        <input type="file" name="multipartFile" multiple="multiple">
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-4">
+                        <label>파일 2 </label>
+                        <input type="file" name="multipartFile" multiple="multiple">
+                    </div>
+                </div>
             </div>
             <hr>
-            <div>
+            <div class="mb-3">
                 <input type="button" class="btn btn-primary" th:value="저장" id="savebutton">
             </div>
         </form>
