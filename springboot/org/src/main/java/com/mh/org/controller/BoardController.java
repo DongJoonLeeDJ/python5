@@ -4,6 +4,7 @@ import com.mh.org.entity.FreeBoard;
 import com.mh.org.repository.FreeBoardRepository;
 import com.mh.org.validator.FreeBoardDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,10 @@ import java.util.UUID;
 @RequestMapping("freeboard")
 @RequiredArgsConstructor
 public class BoardController {
+
+    //application.propertis 안에 있는 값을 가져온다...
+    @Value("a.b.c")
+    String abc;
 
     private final  FreeBoardRepository freeBoardRepository;
     public static final Path path = Paths.get(System.getProperty("user.dir"),
@@ -61,15 +66,18 @@ public class BoardController {
     @PostMapping("insert")
     public String insert( MultipartFile multipartFile[], FreeBoardDto dto){
 
-
         for ( int i =0; i < multipartFile.length;i++){
             MultipartFile mf = multipartFile[i];
             if(!mf.isEmpty()){
                 String filename = UUID.randomUUID() +mf.getOriginalFilename();
-                if(i==0)
+                if(i==0) {
                     dto.setFileName1(filename);
-                else
+                    dto.setOri_filename1(mf.getOriginalFilename());
+                }
+                else {
                     dto.setFileName2(filename);
+                    dto.setOri_filename2(mf.getOriginalFilename());
+                }
                 // UUID + Filename
                 File file = new File(
                         path.toAbsolutePath().toString()+File.separator+ filename);
@@ -83,6 +91,8 @@ public class BoardController {
 
         FreeBoard freeBoard = FreeBoard.builder()
                 .filename1(dto.getFileName1())
+                .ori_filename1(dto.getOri_filename1())
+                .ori_filename2(dto.getOri_filename2())
                 .filename2(dto.getFileName2())
                 .name(dto.getName())
                 .title(dto.getTitle())

@@ -35,6 +35,8 @@ public class FreeBoardDto {
     // 파일이름 중복 안나게 문자열 잘 만들어주는 역활
     private String fileName1;
     private String fileName2;
+    private String ori_filename1;
+    private String ori_filename2;
 
 
     public FreeBoardDto() {}

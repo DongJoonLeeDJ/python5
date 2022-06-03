@@ -25,6 +25,27 @@
                     <div th:text="${freeboard.name}"></div>
                 </div>
             </div>
+            <div th:if="${freeboard.ori_filename1}" class="row my-3">
+                <div class="col-4">
+                    <label>파일1</label>
+                    <div>
+                        <img th:src="@{|/myfiles/${freeboard.filename1}|}" alt="img">
+                        <a th:href="@{|/myfiles/${freeboard.filename1}|}" th:text="${freeboard.ori_filename1}">
+                            asdfasdf
+                        </a>
+
+<!--                        <a th:href=""></a>-->
+                    </div>
+                </div>
+            </div>
+            <div th:if="${freeboard.ori_filename2}" class="row my-3">
+                <div class="col-4">
+                    <label>파일2</label>
+                    <div>
+<!--                        <a th:href="" th:text="${freeboard.ori_filename2}"></a>-->
+                    </div>
+                </div>
+            </div>
         </div>
         <hr>
         <div>

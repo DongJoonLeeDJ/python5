@@ -33,6 +33,9 @@ public class FreeBoard {
     private String filename1;
     private String filename2;
 
+    private String ori_filename1;
+    private String ori_filename2;
+
     public FreeBoard() {}
 
 
