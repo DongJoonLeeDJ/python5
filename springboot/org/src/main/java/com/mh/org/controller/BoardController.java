@@ -5,21 +5,26 @@ import com.mh.org.repository.FreeBoardRepository;
 import com.mh.org.validator.FreeBoardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.DateUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -40,6 +45,7 @@ public class BoardController {
     public static final Path path = Paths.get(System.getProperty("user.dir"),
             "src/main/resources/static/myfiles");
 
+//    public static final Path path = Paths.get("c:\\/upload");
     @GetMapping("select")
     public String select(Model model){
 //        List<FreeBoard> list=freeBoardRepository.stateendselect("2022-05-30","2022-06-01");
@@ -114,6 +120,25 @@ public class BoardController {
         model.addAttribute("freeboard",freeboard);
 
         return "freeboard/view";
+    }
+
+    @GetMapping("download/{filename}")
+    public ResponseEntity<Resource> download(
+            @PathVariable("filename")String filename)
+            throws Exception{
+//        File file = new File(
+//                path.toAbsolutePath().toString()+File.separator+ filename);
+        System.out.println(path.toAbsolutePath().toString()+File.separator+ filename);
+        Path realpath = Paths.get(path.toAbsolutePath().toString()+File.separator+ filename);
+        String contentType = Files.probeContentType(realpath);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDisposition(ContentDisposition.builder("attachment")
+                                    .filename(filename, StandardCharsets.UTF_8)
+                                    .build());
+        headers.add(HttpHeaders.CONTENT_TYPE,contentType);
+        Resource resource = new InputStreamResource(Files.newInputStream(realpath));
+        return new ResponseEntity<Resource>(resource,headers, HttpStatus.OK);
     }
 
 
